@@ -154,7 +154,22 @@ try:
             bodies[0].goto(head.xcor(), head.ycor())
  
         move()
- 
+
+        # ---- Self collision ----
+        for body in bodies:
+            if body.distance(head) < 20:
+                time.sleep(1)
+                head.goto(0, 0)
+                head.direction = "stop"
+                for b in bodies:
+                    b.goto(1000, 1000)
+                bodies.clear()
+                score = 0
+                delay = 0.1
+                sb.clear()
+                sb.write(f"Score: {score} | High Score: {high_score}",
+                         align="left", font=("Arial", 14, "normal"))
+
         time.sleep(delay)
  
 except turtle.Terminator:
